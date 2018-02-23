@@ -61,7 +61,8 @@ function setupYScale()
     .rangeRound([0, height])
     .domain(totalSales.map(function(d, i) {
       return d.product;
-    }));
+    }))
+    .padding(0.1);
 }
 
 function appendXAxis() {

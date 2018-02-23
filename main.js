@@ -104,5 +104,6 @@ function appendChartBars()
       .attr('height', y.bandwidth)
       .attr('width', function(d, i) {
         return x(d.sales);
-      });
+      })
+      .style('fill',(d,_)=>d.color)
 }

@@ -22,13 +22,19 @@ appendChartBars();
 
 // 1. let's start by selecting the SVG Node
 function setupCanvasSize() {
-  margin = {top: 0, left: 80, bottom: 20, right: 30};
-  width = 960 - margin.left - margin.right;
-  height = 120 - margin.top - margin.bottom;
+  margin = {top: 10, left: 80, bottom: 20, right: 30};
+  width = 520 - margin.left - margin.right;
+  height = 560 - margin.top - margin.bottom;
 }
 
 function appendSvg(domElement) {
-  svg = d3.select(domElement).append("svg")
+  /*svg = d3.select(domElement).append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform",`translate(${margin.left}, ${margin.top})`);*/
+
+              svg = d3.select(domElement).append("svg")
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
               .append("g")
@@ -42,12 +48,19 @@ function appendSvg(domElement) {
 // domain == data (data from 0 to maxSales) boundaries
 function setupXScale()
 {
-  var maxSales = d3.max(totalSales, (d, _)=>d.sales);
+  
+  /* x = d3.scaleLinear()
+  .range([0, width])
+  .domain([0, maxSales]);*/
+  
+  x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
 
-  x = d3.scaleLinear()
-    .range([0, width])
-    .domain([0, maxSales]);
-
+  x.domain(totalSales.map((d, _)=>d.product))
+  /*d3.scaleBand()
+  .rangeRound([0, width])
+  //.domain(totalSales.map((d, _)=>d.product))
+  .padding(0.1);*/
+  
 }
 
 // Now we don't have a linear range of values, we have a discrete
@@ -55,16 +68,19 @@ function setupXScale()
 // Here we are generating an array of product names
 function setupYScale()
 {
-  y = d3.scaleBand()
+  var maxSales = d3.max(totalSales, (d, _)=>d.sales);
+  /*y = d3.scaleBand()
     .rangeRound([0, height])
     .domain(totalSales.map((d, _)=>d.product))
-    .padding(0.1);
+    .padding(0.1);*/
+
+   y= d3.scaleLinear().range([height, 0]).domain([0,maxSales])
 }
 
 function appendXAxis() {
   // Add the X Axis
   svg.append("g")
-    .attr("transform",`translate(0, ${height})`)
+    .attr("transform",`translate(0,${height})`)
     .call(d3.axisBottom(x));
 }
 
@@ -93,10 +109,17 @@ function appendChartBars()
     //    width: Now that we have the mapping previously done (linear)
     //           we just pass the sales and use the X axis conversion to
     //           get the right value
-    newRects.append('rect')
+    /*newRects.append('rect')
       .attr('x', x(0))
       .attr('y', (d, _) =>y(d.product))
       .attr('height', y.bandwidth)
       .attr('width', (d, _)=> x(d.sales))
-      .style('fill',(d,_)=>d.color)
+      .style('fill',(d,_)=>d.color) *///Color added to each bar
+//.attr('y', y(0)-height)
+      newRects.append('rect')
+      .attr('x', (d, _) =>x(d.product))
+      .attr('y', (d)=>y(d.sales))
+      .attr('height',(d, _)=> height-y(d.sales))
+      .attr('width', x.bandwidth)
+      .style('fill',(d,_)=>d.color) //Color added to each bar
 }

@@ -117,9 +117,14 @@ function appendChartBars()
       .style('fill',(d,_)=>d.color) *///Color added to each bar
 //.attr('y', y(0)-height)
       newRects.append('rect')
-      .attr('x', (d, _) =>x(d.product))
-      .attr('y', (d)=>y(d.sales))
-      .attr('height',(d, _)=> height-y(d.sales))
-      .attr('width', x.bandwidth)
-      .style('fill',(d,_)=>d.color) //Color added to each bar
+        .attr('x', (d) =>x(d.product))
+        .attr('y', (d)=>height)
+        .attr('width', x.bandwidth)
+        .attr("height", 0)
+        .transition()
+		.duration(500)
+		.delay((d, i)=> i * 50)
+        .attr('y', (d)=>y(d.sales))
+        .attr('height',(d)=> height-y(d.sales))
+        .style('fill',(d)=>d.color)//Color added to each bar
 }

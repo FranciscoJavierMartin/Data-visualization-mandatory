@@ -4,12 +4,12 @@
 
 .axis path,
 .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
 .legend {
-    padding: 5px;
-    font: 15px sans-serif;
+  padding: 5px;
+  font: 15px sans-serif;
 }

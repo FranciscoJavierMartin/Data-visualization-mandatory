@@ -12,12 +12,15 @@ let svg = null;
 let x, y = null; // scales
 let legend=null;
 
+//Margins of main canvas
 const margin = {top: 10, left: 80, bottom: 20, right: 30};
+//Position of the legend box
 const legend_position={left:60,down:50};
+//Dimensions of the lengend box
 const legend_dimension={height:100,width:100};
 
 setupCanvasSize();
-appendSvg("body");
+appendSvg('body');
 setupXScale();
 setupYScale();
 appendXAxis();
@@ -32,11 +35,11 @@ function setupCanvasSize() {
 }
 
 function appendSvg(domElement) {
-  svg = d3.select(domElement).append("svg")
-    .attr("width", width + margin.left + margin.right+legend_dimension.width)
-    .attr("height", height + margin.top + margin.bottom+legend_dimension.height)
-    .append("g")
-    .attr("transform",`translate(${margin.left}, ${margin.top})`);
+  svg = d3.select(domElement).append('svg')
+    .attr('width', width + margin.left + margin.right+legend_dimension.width)
+    .attr('height', height + margin.top + margin.bottom+legend_dimension.height)
+    .append('g')
+    .attr('transform',`translate(${margin.left}, ${margin.top})`);
 }
 
 // Now on the X axis we want to map totalSales values to
@@ -44,8 +47,7 @@ function appendSvg(domElement) {
 // in this case we map the canvas range 0..350, to 0...maxSales
 // domain == data (data from 0 to maxSales) boundaries
 function setupXScale(){
-  x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
-  x.domain(totalSales.map((d)=>d.product));
+  x = d3.scaleBand().rangeRound([0, width]).padding(0.1).domain(totalSales.map((d)=>d.product));
 }
 
 // Now we don't have a linear range of values, we have a discrete
@@ -58,14 +60,14 @@ function setupYScale(){
 
 // Add the X Axis
 function appendXAxis() {
-  svg.append("g")
-    .attr("transform",`translate(0,${height})`)
+  svg.append('g')
+    .attr('transform',`translate(0,${height})`)
     .call(d3.axisBottom(x));
 }
 
 // Add the Y Axis
 function appendYAxis() {
-  svg.append("g")
+  svg.append('g')
   .call(d3.axisLeft(y));
 }
 
@@ -91,7 +93,7 @@ function appendChartBars(){
     .attr('x', (d) =>x(d.product))
     .attr('y', (d)=>height)
     .attr('width', x.bandwidth)
-    .attr("height", 0)
+    .attr('height', 0)
     .transition()
 	  .duration(500)
 	  .delay((d, i)=> i * 50)
@@ -102,22 +104,22 @@ function appendChartBars(){
 
 function appendLegend(){
 
-  legend = svg.append("g")
-	  .attr("class", "legend")
-	  .attr("height", legend_dimension.height)
-	  .attr("width", legend_dimension.width)
+  legend = svg.append('g')
+	  .attr('class', 'legend')
+	  .attr('height', legend_dimension.height)
+	  .attr('width', legend_dimension.width)
     .attr('transform',
        `translate(${legend_position.left},${legend_position.down})`)
 
   legend.selectAll('rect')
     .data(totalSales)
     .enter()
-    .append("rect")
-	  .attr("x", width - 65)
-    .attr("y", (d, i)=> i *  20)
-	  .attr("width", 10)
-	  .attr("height", 10)
-	  .style("fill", (d)=> d.color);
+    .append('rect')
+	  .attr('x', width - 65)
+    .attr('y', (d, i)=> i *  20)
+	  .attr('width', 10)
+	  .attr('height', 10)
+	  .style('fill', (d)=> d.color);
       
   legend.selectAll('text')
     .data(totalSales)

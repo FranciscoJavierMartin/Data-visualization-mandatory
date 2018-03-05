@@ -8,6 +8,8 @@
     stroke: #000;
     shape-rendering: crispEdges;
 }
-.mio{
-  fill: blue;
+
+.legend {
+    padding: 5px;
+    font: 15px sans-serif;
 }

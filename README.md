@@ -1,12 +1,12 @@
 # Mandatory Excercise
 
-This is the mandatory exercise of Data Visualization Module. If you want to see the result, click here.
+This is the mandatory exercise of Data Visualization Module. If you want to see the result, [click here](https://franciscojaviermartin.github.io/Visualizacion-datos-mandatory/).
 
 The files included are:
 
 - `data.js` : a file with the data products to visualizate. Each product must contain a name, a number of sales and a color to visualizate.
 
-- `styles.css` : a file with the styles to the page. I only add a class with the font-size, font-family and a padding for the legend.
+- `styles.css` : a file with the styles to the page. I only add a class with the font-size, font-family and a padding for the legend. The background-color has been changed to a light gray for a better visualization.
 
 - `index.html` : is the html file that load every file.
 

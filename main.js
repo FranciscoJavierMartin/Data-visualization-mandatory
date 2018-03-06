@@ -13,7 +13,7 @@ let x, y = null; // scales
 let legend=null;
 
 //Margins of main canvas
-const margin = {top: 10, left: 80, bottom: 20, right: 30};
+const margin = {top: 30, left: 80, bottom: 30, right: 30};
 //Position of the legend box
 const legend_position={left:60,down:50};
 //Dimensions of the lengend box
@@ -31,13 +31,13 @@ appendLegend();
 // 1. let's start by selecting the SVG Node
 function setupCanvasSize() {
   width = 520 - margin.left - margin.right;
-  height = 560 - margin.top - margin.bottom;
+  height = 520 - margin.top - margin.bottom;
 }
 
 function appendSvg(domElement) {
   svg = d3.select(domElement).append('svg')
     .attr('width', width + margin.left + margin.right+legend_dimension.width)
-    .attr('height', height + margin.top + margin.bottom+legend_dimension.height)
+    .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform',`translate(${margin.left}, ${margin.top})`);
 }
